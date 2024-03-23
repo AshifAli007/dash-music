@@ -15,21 +15,41 @@ const MainPage = () => {
             amplitude: 100,
             frequency: 0.01
         }
-        gui.add(wave, 'y', 0, canvas.height);
-        gui.add(wave, 'length', -0.01, 0.01);
-        gui.add(wave, 'amplitude', -300, 300);
+        const strokeColor = {
+            h: 200,
+            s: 50,
+            l: 50
+        }
+        const waveFolder = gui.addFolder('wave');
+
+        waveFolder.add(wave, 'y', 0, canvas.height);
+        waveFolder.add(wave, 'length', -0.01, 0.01);
+        waveFolder.add(wave, 'amplitude', -300, 300);
+        waveFolder.add(wave, 'frequency', -0.01, 1);
+        waveFolder.open();
+
+        const strokeFolder = gui.addFolder('stroke');
+        strokeFolder.add(strokeColor, 'h', 0, 255);
+        strokeFolder.add(strokeColor, 's', 0, 100);
+        strokeFolder.add(strokeColor, 'l', 0, 100);
+        strokeFolder.open();
 
         
-
+        let increment = wave.frequency;
         function animate() {
             requestAnimationFrame(animate);
+            c.fillStyle = 'rgba(0, 0, 0, 0.01)';
+            c.fillRect(0, 0, canvas.width, canvas.height);
+
             c.beginPath();
             c.moveTo(0, canvas.height / 2);
             for(let i=0; i<canvas.width; i++) {
-                c.lineTo(i, wave.y + Math.sin(i * wave.length) * wave.amplitude);
+                c.lineTo(i, wave.y + Math.sin(i * wave.length + increment) * wave.amplitude);
             }
-            c.lineTo(canvas.width, canvas.height / 2);
+            // c.lineTo(canvas.width, canvas.height / 2);
+            c.strokeStyle = `hsl(${strokeColor.h}, ${strokeColor.s}%, ${strokeColor.l}%)`;
             c.stroke();
+            increment += wave.frequency;
         }
         animate();
     }, []);
