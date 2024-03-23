@@ -6,11 +6,11 @@ import { gsap } from 'gsap';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
 import Image from '../Assets/record.jpg';
-import song from '../Assets/runIt.mp3';
+import song from '../Assets/runIt1.mp3';
 
  // Adjust the path as needed
 
-const Record = () => {
+const Record = ({updateAmplitude}) => {
    
     const [isPlaying, setIsPlaying] = useState(false);
     const [animation, setAnimation] = useState(null);
@@ -76,7 +76,7 @@ const Record = () => {
                 lowest = dataArray[128];
                 console.log(lowest, 'lowest')
             }
-        
+            updateAmplitude(dataArray[128], dataArray[1], dataArray[100]);
             // console.log(dataArray[128], 'bufferLength');
 
         };

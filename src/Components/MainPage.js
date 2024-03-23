@@ -3,6 +3,18 @@ import { LuListMusic } from "react-icons/lu";
 import Record from "./Record";
 import { gsap } from 'gsap';
 const MainPage = () => {
+    let newAmplitude = null;
+    let newLength = null;
+    function normalize(value, oldMin, oldMax, newMin, newMax) {
+        return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
+    }
+    const updateAmplitude = (value1, value2, value3) => {
+        
+        console.log(value1);
+        newAmplitude = normalize(value1, 70, 160, -600, 600);
+        newLength = normalize(value2, 60, 170, 0.01, 0.015);
+    
+    }
     useEffect(()=>{
         
         const dat = require('dat.gui');
@@ -22,8 +34,9 @@ const MainPage = () => {
         const wave2 = {
             y: canvas.height / 2 - 50, // Starting a bit off from the first one
             length: 0.015, // Slightly different length for variety
-            amplitude: 150, // Different amplitude
+            amplitude: 200, // Different amplitude
             frequency: 0.003 // Different frequency
+            // frequency: 0.05 // Different frequency
         };
 
 
@@ -49,7 +62,7 @@ const MainPage = () => {
         const wave2Folder = gui.addFolder('Wave 2');
         wave2Folder.add(wave2, 'y', 0, canvas.height);
         wave2Folder.add(wave2, 'length', -0.01, 0.01);
-        wave2Folder.add(wave2, 'amplitude', -300, 300);
+        wave2Folder.add(wave2, 'amplitude', -600, 600);
         wave2Folder.add(wave2, 'frequency', -0.01, 1);
         // wave2Folder.open();
 
@@ -73,6 +86,7 @@ const MainPage = () => {
         // }, 10000);
         gui.close();
 
+        
 
         let increment = wave.frequency;
         let increment2 = wave2.frequency;
@@ -86,7 +100,7 @@ const MainPage = () => {
             for(let i=0; i<canvas.width; i++) {
                 c.lineTo(i, 
                     wave.y + 
-                    ((Math.sin(i * wave.length + increment) *  wave.amplitude) / i) * 100);
+                    ((Math.sin(i * wave.length + increment) *  newAmplitude ?? wave.amplitude) / i) * 100);
             }
             c.strokeStyle = `hsl(${Math.abs(strokeColor.h * Math.sin(increment))}, ${strokeColor.s}%, ${strokeColor.l}%)`;
             c.stroke();
@@ -114,7 +128,7 @@ const MainPage = () => {
         
         <div className="container">
             
-            <Record />
+            <Record updateAmplitude={updateAmplitude}/>
             <div className="navbar">
             <div className="logo"><LuListMusic /></div>
             <nav>
