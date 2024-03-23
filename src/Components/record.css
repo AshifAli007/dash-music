@@ -1,0 +1,22 @@
+
+
+
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.icon {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    color: black; /* Adjust color as needed */
+    opacity: 0.7; /* Adjust for desired transparency */
+}
+
+.record:hover .icon {
+    opacity: 1; /* Full opacity on hover */
+}
