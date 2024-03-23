@@ -33,13 +33,10 @@ const Record = ({updateAmplitude}) => {
     
             setAnalyser(analyser);
     
-            // Example function to handle starting audio, making sure it's user-initiated
-            const playAudio = () => {
-                audioRef.current.play().catch(e => console.error("Playback failed:", e));
-            };
+            
             console.log(analyser, 'analyser');
             
-            // Bind event listener or directly call playAudio in a user-initiated event handler
+            
         }
     }, [audioContext]);
 

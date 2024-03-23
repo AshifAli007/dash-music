@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { LuListMusic } from "react-icons/lu";
 import Record from "./Record";
-import { gsap } from 'gsap';
 const MainPage = () => {
     let newAmplitude = null;
-    let newLength = null;
     function normalize(value, oldMin, oldMax, newMin, newMax) {
         return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
     }
@@ -12,7 +10,7 @@ const MainPage = () => {
         
         console.log(value1);
         newAmplitude = normalize(value1, 70, 160, -600, 600);
-        newLength = normalize(value2, 60, 170, 0.01, 0.015);
+        // newLength = normalize(value2, 60, 170, 0.01, 0.015);
     
     }
     useEffect(()=>{
