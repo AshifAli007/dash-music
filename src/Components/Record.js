@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
 import Image from '../Assets/record.jpg';
-import song from '../Assets/runIt1.mp3';
+import song from '../Assets/runIt.mp3';
 
  // Adjust the path as needed
 
